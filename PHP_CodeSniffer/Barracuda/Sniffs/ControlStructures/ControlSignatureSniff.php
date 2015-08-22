@@ -64,7 +64,9 @@ class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sni
         }
 
         // Single newline after the keyword.
-        if (in_array($tokens[$stackPtr]['code'], array(T_TRY, T_DO, T_ELSE))) {
+        if (in_array($tokens[$stackPtr]['code'], array(T_TRY, T_DO, T_ELSE))
+            && isset($tokens[$stackPtr]['scope_opener']) === true
+        ) {
             $opener = $tokens[$stackPtr]['scope_opener'];
             $found = ($tokens[$opener]['line'] - $tokens[$stackPtr]['line']);
             if ($found !== 1) {
