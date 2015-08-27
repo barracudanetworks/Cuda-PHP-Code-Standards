@@ -22,6 +22,13 @@
 		<exclude name="PSR2.ControlStructures.ControlStructureSpacing"/>
 	</rule>
 
+	<!-- Configure for commenting -->
+	<rule ref="Squiz.Commenting.FunctionComment" />
+	<rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+	<rule ref="Squiz.Commenting.ClassComment" />
+	<rule ref="Squiz.Commenting.FileComment" />
+	<rule ref="Squiz.Commenting.VariableComment" />
+
 	<!-- Configure for tabs -->
 	<arg name="tab-width" value="4"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
