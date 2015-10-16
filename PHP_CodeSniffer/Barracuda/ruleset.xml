@@ -22,6 +22,14 @@
 		<exclude name="PSR2.ControlStructures.ControlStructureSpacing"/>
 	</rule>
 
+	<!-- Configure for concatenation operator spacing -->
+	<rule ref="Squiz.Strings.ConcatenationSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="ignoreNewlines" value="true" />
+		</properties>
+	</rule>
+
 	<!-- Configure for commenting -->
 	<rule ref="Squiz.Commenting.FunctionComment" />
 	<rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
