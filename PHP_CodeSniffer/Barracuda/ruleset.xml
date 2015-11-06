@@ -38,12 +38,12 @@
 	<rule ref="Squiz.Commenting.VariableComment" />
 
 	<!-- Configure for tabs -->
-	<arg name="tab-width" value="4"/>
+	<!-- <arg name="tab-width" value="4"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
 			<property name="indent" value="4"/>
 			<property name="tabIndent" value="true"/>
 		</properties>
-	</rule>
+	</rule> -->
 </ruleset>
