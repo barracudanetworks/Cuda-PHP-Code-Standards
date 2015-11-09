@@ -16,6 +16,8 @@
 		<exclude name="PSR1.Classes.ClassDeclaration"/>
 		<!-- Exclude multi line function -->
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+		<!-- Exclude default function sniff -->
+		<exclude name="Squiz.Functions.FunctionDeclaration"/>
 		<!-- Exclude spaces instead of tabs -->
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
 		<!-- Exclude spacing around parenthesis checks -->
