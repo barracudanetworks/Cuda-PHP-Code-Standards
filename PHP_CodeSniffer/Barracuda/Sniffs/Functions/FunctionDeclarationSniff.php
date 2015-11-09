@@ -13,7 +13,7 @@
  */
 
 if (class_exists('PEAR_Sniffs_Functions_FunctionDeclarationSniff', true) === false) {
-    $error = 'Class Barracuda_Sniffs_Functions_FunctionDeclarationSniff not found';
+    $error = 'Class PEAR_Sniffs_Functions_FunctionDeclarationSniff not found';
     throw new PHP_CodeSniffer_Exception($error);
 }
 
