@@ -32,7 +32,15 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
 
 class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
 {
-	protected $customAllowedTypes = array('bool', 'int');
+	protected $allowedTypes = array(
+		'bool',
+		'int',
+	);
+
+	public function __construct()
+	{
+		PHP_CodeSniffer::$allowedTypes = array_merge(PHP_CodeSniffer::$allowedTypes, $this->allowedTypes);
+	}
 
     /**
      * Called to process class member vars.
@@ -120,7 +128,7 @@ class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_S
 
         $varType       = $tokens[($foundVar + 2)]['content'];
         $suggestedType = PHP_CodeSniffer::suggestType($varType);
-        if ($varType !== $suggestedType && !in_array($varType, $this->customAllowedTypes)) {
+        if ($varType !== $suggestedType) {
             $error = 'Expected "%s" but found "%s" for @var tag in member variable comment';
             $data  = array(
                       $suggestedType,
