@@ -14,7 +14,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                                              'allow_multiple' => false,
                                             ),
                            '@package'    => array(
-                                             'required'       => true,
+                                             'required'       => false,
                                              'allow_multiple' => false,
                                             ),
                            '@subpackage' => array(
@@ -22,7 +22,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                                              'allow_multiple' => false,
                                             ),
                            '@author'     => array(
-                                             'required'       => true,
+                                             'required'       => false,
                                              'allow_multiple' => true,
                                             ),
                            '@copyright'  => array(
@@ -38,7 +38,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                                              'allow_multiple' => false,
                                             ),
                            '@link'       => array(
-                                             'required'       => true,
+                                             'required'       => false,
                                              'allow_multiple' => true,
                                             ),
                            '@see'        => array(
