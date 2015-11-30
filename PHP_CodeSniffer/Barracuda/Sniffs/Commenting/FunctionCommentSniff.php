@@ -345,7 +345,7 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
             $typeNames = explode('|', $param['type']);
             foreach ($typeNames as $typeName) {
                 $suggestedName = PHP_CodeSniffer::suggestType($typeName);
-                if ($typeName !== $suggestedName && !in_array($typeName, $this->customAllowedTypes)) {
+                if ($typeName !== $suggestedName) {
                     $error = 'Expected "%s" but found "%s" for parameter type';
                     $data  = array(
                               $suggestedName,
@@ -364,7 +364,7 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
 
                         $phpcsFile->fixer->replaceToken(($param['tag'] + 2), $content);
                     }
-                } else if (count($typeNames) === 1 && !in_array($typeName, $this->customAllowedTypes)) {
+                } else if (count($typeNames) === 1) {
                     // Check type hint for array and custom type.
                     $suggestedTypeHint = '';
                     if (strpos($suggestedName, 'array') !== false || substr($suggestedName, -2) === '[]') {
