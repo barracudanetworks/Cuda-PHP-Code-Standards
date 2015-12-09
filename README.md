@@ -9,8 +9,10 @@ INSTALLATION
 1. Install [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer#installation)
 
 2. Install your editor plugin.
- - For Sublime Text, this is `Phpcs` in Package Control.
+ - For Sublime Text, install `Phpcs` under Package Control
  - For Atom, install `linter` and `linter-phpcs`
+ - For vim, install `scrooloose/syntastic`
+ - For PhpStorm, you do not need to install anything extra
 
 SETUP
 -----
@@ -19,8 +21,11 @@ When running `phpcs` or `phpcbf` point it to the location where you cloned this 
 
 Below are some sample configurations for various editors:
 
-### Sublime Text 2 & 3
-There is an example .sublime-project file for Sublime Text in the config directory. You'll need to rename it to .sublime-project and place it in your repo directories.
+### Sublime Text 3
+
+*Note*: Sublime Text 2 is unsupported.
+
+After installing the `Phpcs` package, go to Sublime Text > Preferences > Package Settings > Phpcs > Settings - User. Then paste the following configuration, updating the paths as necessary.
 
 	{
 		"phpcs_additional_args": {
@@ -40,6 +45,7 @@ There is an example .sublime-project file for Sublime Text in the config directo
 	}
 
 ### Atom
+
 For Atom, the following configuration should be added to ~/.atom/Config.cson. It can also be configured in the `linter-phpcs` settings page.
 
 	"linter-phpcs":
@@ -49,9 +55,12 @@ For Atom, the following configuration should be added to ~/.atom/Config.cson. It
 	    warningSeverity: 0
 
 ### vim
+
 It is suggested to use [Syntastic](https://github.com/scrooloose/syntastic) for vim.
-This supports phpcs for php checking as well as many other languages
-The following config should do php linting as well as code sniffing
+
+This supports many syntax and coding style checkers, including phpcs for PHP.
+
+Add the following to your .vimrc, updating paths as necessary:
 
 	" Use the following for checking php files
 	let g:syntastic_php_checkers = ['php', 'phpcs']
@@ -61,6 +70,7 @@ The following config should do php linting as well as code sniffing
 	let g:syntastic_php_phpcs_args="--standard=/path/to/common-standards/Barracuda"
 
 ### PhpStorm
+
 To get set up just follow the instructions at (https://confluence.jetbrains.com/display/PhpStorm/PHP+Code+Sniffer+in+PhpStorm)
 
 In summary the steps are:
