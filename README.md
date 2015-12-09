@@ -60,6 +60,20 @@ The following config should do php linting as well as code sniffing
 	" Set phpcs args
 	let g:syntastic_php_phpcs_args="--standard=/path/to/common-standards/Barracuda"
 
+### PhpStorm
+To get set up just follow the instructions at (https://confluence.jetbrains.com/display/PhpStorm/PHP+Code+Sniffer+in+PhpStorm)
+
+In summary the steps are:
+- In the PhpStorm settings, search for "Code Sniffer" or find it at Languages & Frameworks > PHP > Code Sniffer
+- Under Configuration make sure "Local" is selected and click the menu button
+- Set your code sniffer phpcs path to the location where you installed the code sniffer files above
+- Click the "Verify" button to make sure code sniffer is working
+- In settings, search for "Inspections" or find it under Editor > Inspections
+- Within Inspections look for the "PHP Code Sniffer Validation" option. Enable it.
+- You should see an option named "Coding standard." Select "Custom" and then use the menu button to input the directory you installed the Barracuda standards repo to.
+
+You should now be able to run code sniffer by going to Code > Inspect Code in the PhpStorm menu!
+
 TODO
 ----
 - require newline or opening brace before // comments
