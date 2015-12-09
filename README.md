@@ -25,13 +25,13 @@ Below are some sample configurations for various editors:
 
 *Note*: Sublime Text 2 is unsupported.
 
-After installing the `Phpcs` package, go to Sublime Text > Preferences > Package Settings > Phpcs > Settings - User. Then paste the following configuration, updating the paths as necessary.
+After installing the `Phpcs` package, go to Sublime Text > Preferences > Package Settings > PHP Code Sniffer > Settings - User. Then paste the following configuration, updating the paths as necessary.
 
 	{
 		"phpcs_additional_args": {
 
 		 	// self-explanatory
-			"--standard": "/absolute/path/to/commonstandards/Barracuda/ruleset.xml",
+			"--standard": "/absolute/path/to/commonstandards/PHP_CodeSniffer/Barracuda/ruleset.xml",
 
 			// this allows us to continue to use tabs (part of our standard)
 			"--tab-width": "4",
