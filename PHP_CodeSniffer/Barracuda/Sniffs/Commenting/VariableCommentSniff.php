@@ -32,16 +32,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
 
 class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
 {
-	protected $allowedTypes = array(
-		'bool',
-		'int',
-	);
-
-	public function __construct()
-	{
-		PHP_CodeSniffer::$allowedTypes = array_merge(PHP_CodeSniffer::$allowedTypes, $this->allowedTypes);
-	}
-
     /**
      * Called to process class member vars.
      *

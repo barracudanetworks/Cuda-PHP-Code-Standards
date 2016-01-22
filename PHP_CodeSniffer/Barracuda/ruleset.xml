@@ -3,6 +3,9 @@
 
 	<description>PSR2 with Barracuda exceptions</description>
 
+	<!-- Load up Barracuda-specific bootstrap -->
+	<arg name="bootstrap" value="bootstrap.php"/>
+
 	<rule ref="PSR2">
 		<!-- Exclude camel caps class name checking -->
 		<exclude name="Squiz.ControlStructures.ControlSignature"/>

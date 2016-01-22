@@ -31,16 +31,6 @@ if (class_exists('PEAR_Sniffs_Commenting_FunctionCommentSniff', true) === false)
  */
 class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commenting_FunctionCommentSniff
 {
-	protected $allowedTypes = array(
-		'int',
-		'bool',
-	);
-
-	public function __construct()
-	{
-		PHP_CodeSniffer::$allowedTypes = array_merge(PHP_CodeSniffer::$allowedTypes, $this->allowedTypes);
-	}
-
     /**
      * Process the return comment of this function comment.
      *
