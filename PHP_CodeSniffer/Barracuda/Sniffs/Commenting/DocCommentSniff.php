@@ -1,6 +1,27 @@
 <?php
+/**
+ * This sniff controls requirements for PHP doc blocks.
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Daniel Bergey <dbergey@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
+ */
 
-class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sniff
+namespace Barracuda\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Common;
+
+/**
+ * Controls requirements for PHP doc blocks.
+ */
+class DocCommentSniff implements Sniff
 {
 
         /**
@@ -71,13 +92,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
         /**
          * Processes this test, when one of its tokens is encountered.
          *
-         * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-         * @param int                  $stackPtr  The position of the current token
-         *                                        in the stack passed in $tokens.
+         * @param File $phpcsFile The file being scanned.
+         * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
          *
          * @return int
          */
-        public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+        public function process(File $phpcsFile, $stackPtr)
         {
             $tokens = $phpcsFile->getTokens();
 
@@ -156,14 +176,13 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
         /**
          * Processes each required or optional tag.
          *
-         * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-         * @param int                  $stackPtr     The position of the current token
-         *                                           in the stack passed in $tokens.
-         * @param int                  $commentStart Position in the stack where the comment started.
+         * @param File $phpcsFile    The file being scanned.
+         * @param int  $stackPtr     The position of the current token in the stack passed in $tokens.
+         * @param int  $commentStart Position in the stack where the comment started.
          *
          * @return void
          */
-        protected function processTags(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+        protected function processTags(File $phpcsFile, $stackPtr, $commentStart)
         {
             $tokens = $phpcsFile->getTokens();
 
@@ -255,12 +274,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
         /**
          * Process the category tag.
          *
-         * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-         * @param array                $tags      The tokens for these tags.
+         * @param File  $phpcsFile The file being scanned.
+         * @param array $tags      The tokens for these tags.
          *
          * @return void
          */
-        protected function processCategory(PHP_CodeSniffer_File $phpcsFile, array $tags)
+        protected function processCategory(File $phpcsFile, array $tags)
         {
             $tokens = $phpcsFile->getTokens();
             foreach ($tags as $tag) {
@@ -270,7 +289,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                 }
 
                 $content = $tokens[($tag + 2)]['content'];
-                if (PHP_CodeSniffer::isUnderscoreName($content) !== true) {
+                if (Common::isUnderscoreName($content) !== true) {
                     $newContent = str_replace(' ', '_', $content);
                     $nameBits   = explode('_', $newContent);
                     $firstBit   = array_shift($nameBits);
@@ -297,12 +316,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
         /**
          * Process the package tag.
          *
-         * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-         * @param array                $tags      The tokens for these tags.
+         * @param File  $phpcsFile The file being scanned.
+         * @param array $tags      The tokens for these tags.
          *
          * @return void
          */
-        protected function processPackage(PHP_CodeSniffer_File $phpcsFile, array $tags)
+        protected function processPackage(File $phpcsFile, array $tags)
         {
             $tokens = $phpcsFile->getTokens();
             foreach ($tags as $tag) {
@@ -312,7 +331,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                 }
 
                 $content = $tokens[($tag + 2)]['content'];
-                if (PHP_CodeSniffer::isUnderscoreName($content) === true) {
+                if (Common::isUnderscoreName($content) === true) {
                     continue;
                 }
 
@@ -343,12 +362,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
         /**
          * Process the subpackage tag.
          *
-         * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-         * @param array                $tags      The tokens for these tags.
+         * @param File  $phpcsFile The file being scanned.
+         * @param array $tags      The tokens for these tags.
          *
          * @return void
          */
-        protected function processSubpackage(PHP_CodeSniffer_File $phpcsFile, array $tags)
+        protected function processSubpackage(File $phpcsFile, array $tags)
         {
             $tokens = $phpcsFile->getTokens();
             foreach ($tags as $tag) {
@@ -358,7 +377,7 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
                 }
 
                 $content = $tokens[($tag + 2)]['content'];
-                if (PHP_CodeSniffer::isUnderscoreName($content) === true) {
+                if (Common::isUnderscoreName($content) === true) {
                     continue;
                 }
 
@@ -432,12 +451,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
     /**
      * Process the license tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processLicense(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processLicense(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -461,12 +480,12 @@ class Barracuda_Sniffs_Commenting_DocCommentSniff implements PHP_CodeSniffer_Sni
     /**
      * Process the version tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processVersion(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processVersion(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {

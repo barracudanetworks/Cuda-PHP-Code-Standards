@@ -1,35 +1,28 @@
 <?php
 /**
- * Barracuda_Sniffs_WhiteSpace_SuperfluousWhitespaceSniff.
+ * Checks that no whitespace proceeds the first content of the file, exists
+ * after the last content of the file, resides after content on any line, or
+ * are two empty lines in functions.
  *
  * PHP version 5
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @author    Ryan Matthews <rmatthews@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
  */
 
+namespace Barracuda\Sniffs\Whitespace;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+
 /**
- * Barracuda_Sniffs_WhiteSpace_SuperfluousWhitespaceSniff.
- *
- * Checks that no whitespace proceeds the first content of the file, exists
- * after the last content of the file, resides after content on any line, or
- * are two empty lines in functions.
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * Prohibits unnecessary whitespace within a file.
  */
-class Barracuda_Sniffs_WhiteSpace_SuperfluousWhitespaceSniff implements PHP_CodeSniffer_Sniff
+class SuperfluousWhitespaceSniff implements Sniff
 {
 
     /**
@@ -75,13 +68,12 @@ class Barracuda_Sniffs_WhiteSpace_SuperfluousWhitespaceSniff implements PHP_Code
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 

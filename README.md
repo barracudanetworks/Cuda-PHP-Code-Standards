@@ -8,6 +8,8 @@ INSTALLATION
 
 1. Install [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer#installation)
 
+    **NOTE:** The sniffs contained in this repository require PHP_CodeSniffer 3.0 or higher.
+
 2. Install your editor plugin.
  - For Sublime Text, install `Phpcs` under Package Control
  - For Atom, install `linter` and `linter-phpcs`

@@ -1,12 +1,28 @@
 <?php
+/**
+ * Extends SquizControlSignatureSniff to allow dropped braces and prevent same-line braces.
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Andy Blyler <ablyler@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
+ */
 
-if (class_exists('Squiz_Sniffs_ControlStructures_ControlSignatureSniff', true) === false)
-{
-    throw new PHP_CodeSniffer_Exception('Class Squiz_Sniffs_ControlStructures_ControlSignatureSniff not found');
-}
+namespace Barracuda\Sniffs\ControlStructures;
 
-// subclasses squiz controlstructures sniff to allow dropped braces and prevent same-line ones
-class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sniffs_ControlStructures_ControlSignatureSniff
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ControlSignatureSniff as SquizControlSignatureSniff;
+use PHP_CodeSniffer\Util\Tokens;
+
+/**
+ * Extends SquizControlSignatureSniff to allow dropped braces and prevent same-line braces.
+ */
+class ControlSignatureSniff extends SquizControlSignatureSniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -18,13 +34,12 @@ class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sni
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -130,7 +145,7 @@ class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sni
 
                 // Skip all empty tokens on the same line as the opener.
                 if ($tokens[$next]['line'] === $tokens[$opener]['line']
-                    && (isset(PHP_CodeSniffer_Tokens::$emptyTokens[$code]) === true
+                    && (isset(Tokens::$emptyTokens[$code]) === true
                     || $code === T_CLOSE_TAG)
                 ) {
                     continue;
@@ -193,7 +208,7 @@ class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sni
             || $tokens[$stackPtr]['code'] === T_ELSEIF
             || $tokens[$stackPtr]['code'] === T_CATCH
         ) {
-            $closer = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+            $closer = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
             if ($closer === false || $tokens[$closer]['code'] !== T_CLOSE_CURLY_BRACKET) {
                 return;
             }
@@ -239,7 +254,7 @@ class Barracuda_Sniffs_ControlStructures_ControlSignatureSniff extends Squiz_Sni
 
                 // Skip all empty tokens on the same line as the closer.
                 if ($tokens[$next]['line'] === $tokens[$closer]['line']
-                    && (isset(PHP_CodeSniffer_Tokens::$emptyTokens[$code]) === true
+                    && (isset(Tokens::$emptyTokens[$code]) === true
                     || $code === T_CLOSE_TAG)
                 ) {
                     continue;
