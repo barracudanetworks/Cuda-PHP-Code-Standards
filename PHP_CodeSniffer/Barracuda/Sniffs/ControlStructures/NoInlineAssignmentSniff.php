@@ -1,6 +1,26 @@
 <?php
+/**
+ * Disallows inline variable assignment (i.e. in an if statement).
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Andy Blyler <ablyler@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
+ */
 
-class Barracuda_Sniffs_ControlStructures_NoInlineAssignmentSniff implements PHP_CodeSniffer_Sniff
+namespace Barracuda\Sniffs\ControlStructures;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+
+/**
+ * Disallows inline variable assignment.
+ */
+class NoInlineAssignmentSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -20,13 +40,12 @@ class Barracuda_Sniffs_ControlStructures_NoInlineAssignmentSniff implements PHP_
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -64,4 +83,3 @@ class Barracuda_Sniffs_ControlStructures_NoInlineAssignmentSniff implements PHP_
 		}
     }
 }
-

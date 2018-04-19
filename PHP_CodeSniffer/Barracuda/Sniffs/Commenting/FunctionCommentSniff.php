@@ -6,30 +6,23 @@
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @author    Ryan Matthews <rmatthews@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
  */
 
-if (class_exists('PEAR_Sniffs_Commenting_FunctionCommentSniff', true) === false) {
-    throw new PHP_CodeSniffer_Exception('Class PEAR_Sniffs_Commenting_FunctionCommentSniff not found');
-}
+namespace Barracuda\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Common;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FunctionCommentSniff as PEARFunctionCommentSniff;
 
 /**
- * Parses and verifies the doc comments for functions.
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * Parses and verifies doc comments for functions.
  */
-class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commenting_FunctionCommentSniff
+class FunctionCommentSniff extends PEARFunctionCommentSniff
 {
 	protected $allowedTypes = array(
 		'int',
@@ -38,20 +31,19 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
 
 	public function __construct()
 	{
-		PHP_CodeSniffer::$allowedTypes = array_merge(PHP_CodeSniffer::$allowedTypes, $this->allowedTypes);
+		Common::$allowedTypes = array_merge(Common::$allowedTypes, $this->allowedTypes);
 	}
 
     /**
      * Process the return comment of this function comment.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processReturn(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -86,7 +78,7 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
                 $typeNames      = explode('|', $content);
                 $suggestedNames = array();
                 foreach ($typeNames as $i => $typeName) {
-                    $suggestedName = PHP_CodeSniffer::suggestType($typeName);
+                    $suggestedName = Common::suggestType($typeName);
                     if (in_array($suggestedName, $suggestedNames) === false) {
                         $suggestedNames[] = $suggestedName;
                     }
@@ -163,14 +155,13 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
     /**
      * Process any throw tags that this function comment has.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processThrows(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processThrows(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -232,14 +223,13 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
     /**
      * Process the function parameter comments.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processParams(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processParams(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -344,7 +334,7 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
             // Check the param type value.
             $typeNames = explode('|', $param['type']);
             foreach ($typeNames as $typeName) {
-                $suggestedName = PHP_CodeSniffer::suggestType($typeName);
+                $suggestedName = Common::suggestType($typeName);
                 if ($typeName !== $suggestedName) {
                     $error = 'Expected "%s" but found "%s" for parameter type';
                     $data  = array(
@@ -373,7 +363,7 @@ class Barracuda_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Comme
                         $suggestedTypeHint = 'callable';
                     } else if (strpos($suggestedName, 'callback') !== false) {
                         $suggestedTypeHint = 'callable';
-                    } else if (in_array($typeName, PHP_CodeSniffer::$allowedTypes) === false) {
+                    } else if (in_array($typeName, Common::$allowedTypes) === false) {
                         $suggestedTypeHint = $suggestedName;
                     }
 

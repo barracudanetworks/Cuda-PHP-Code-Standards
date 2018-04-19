@@ -1,35 +1,26 @@
 <?php
 /**
- * This sniff prohibits the use of single line multi line comments
+ * This sniff prohibits the use of single line block comments
  *
  * PHP version 5
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
  * @author    Ryan Matthews <rmatthews@barracuda.com>
- * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
- * @version   1.0.00
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
  */
 
+ namespace Barracuda\Sniffs\Commenting;
+
+ use PHP_CodeSniffer\Sniffs\Sniff;
+ use PHP_CodeSniffer\Files\File;
+
 /**
- * This sniff prohibits the use of Perl style hash comments.
- *
- * An example of a hash comment is:
- *
- * <code>
- *  /* This is a single line multi line comment, which is prohibited. */
-/* $hello = 'hello';
- * </code>
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Ryan Matthews <rmatthews@barracuda.com>
- * @license   http://matrix.squiz.net/developer/tools/php_cs/licence BSD Licence
- * @version   Release: 1.0.00
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * Prohibits single line block comments.
  */
-class Barracuda_Sniffs_Commenting_DisallowSingleLineMultiCommentsSniff implements PHP_CodeSniffer_Sniff
+class DisallowSingleLineMultiCommentsSniff implements Sniff
 {
 
 
@@ -48,13 +39,12 @@ class Barracuda_Sniffs_Commenting_DisallowSingleLineMultiCommentsSniff implement
     /**
      * Processes the tokens that this sniff is interested in.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int                  $stackPtr  The position in the stack where
-     *                                        the token was found.
+     * @param File $phpcsFile The file where the token was found.
+     * @param int  $stackPtr  The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 		if (preg_match('/\/\*[^\n]*\*\//', $tokens[$stackPtr]['content']))
@@ -67,4 +57,3 @@ class Barracuda_Sniffs_Commenting_DisallowSingleLineMultiCommentsSniff implement
     }// end process()
 }
 // end class
-

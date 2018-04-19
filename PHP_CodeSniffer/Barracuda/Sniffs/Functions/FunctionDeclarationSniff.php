@@ -1,51 +1,41 @@
 <?php
 /**
- * Barracuda_Sniffs_Functions_MultiLineFunctionDeclarationSniff.
+ * Sets requirements for declaration of functions.
  *
  * PHP version 5
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2012 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @author    Eric Olson <eolson@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
  */
 
-if (class_exists('PEAR_Sniffs_Functions_FunctionDeclarationSniff', true) === false) {
-    $error = 'Class PEAR_Sniffs_Functions_FunctionDeclarationSniff not found';
-    throw new PHP_CodeSniffer_Exception($error);
-}
+namespace Barracuda\Sniffs\Functions;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\FunctionDeclarationSniff as PEARFunctionDeclarationSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceBsdAllmanSniff;
 
 /**
- * Barracuda_Sniffs_Functions_MultiLineFunctionDeclarationSniff.
- *
- * Ensure single and multi-line function declarations are defined correctly.
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2012 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @version   Release: 1.5.0RC4
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * Sets requirements for declaration of functions.
  */
-class Barracuda_Sniffs_Functions_FunctionDeclarationSniff extends PEAR_Sniffs_Functions_FunctionDeclarationSniff
+class FunctionDeclarationSniff extends PEARFunctionDeclarationSniff
 {
 
 
     /**
      * Processes multi-line declarations.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
-     * @param array                $tokens    The stack of tokens that make up
-     *                                        the file.
+     * @param File  $phpcsFile The file being scanned.
+     * @param int   $stackPtr  The position of the current token in the stack passed in $tokens.
+     * @param array $tokens    The stack of tokens that make up the file.
      *
      * @return void
      */
-    public function processMultiLineDeclaration(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $tokens)
+    public function processMultiLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
         // We need to work out how far indented the function
         // declaration itself is, so we can work out how far to
@@ -259,17 +249,14 @@ class Barracuda_Sniffs_Functions_FunctionDeclarationSniff extends PEAR_Sniffs_Fu
     /**
      * Processes the contents of a single set of brackets.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile   The file being scanned.
-     * @param int                  $openBracket The position of the open bracket
-     *                                          in the stack passed in $tokens.
-     * @param array                $tokens      The stack of tokens that make up
-     *                                          the file.
-     * @param string               $type        The type of the token the brackets
-     *                                          belong to (function or use).
+     * @param File   $phpcsFile   The file being scanned.
+     * @param int    $openBracket The position of the open bracket in the stack passed in $tokens.
+     * @param array  $tokens      The stack of tokens that make up the file.
+     * @param string $type        The type of the token the brackets belong to (function or use).
      *
      * @return void
      */
-    public function processBracket(PHP_CodeSniffer_File $phpcsFile, $openBracket, $tokens, $type='function')
+    public function processBracket(File $phpcsFile, $openBracket, $tokens, $type='function')
     {
         $errorPrefix = '';
         if ($type === 'use') {
@@ -320,21 +307,15 @@ class Barracuda_Sniffs_Functions_FunctionDeclarationSniff extends PEAR_Sniffs_Fu
      *
      * Just uses the Generic BSD-Allman brace sniff.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
-     * @param array                $tokens    The stack of tokens that make up
-     *                                        the file.
+     * @param File  $phpcsFile The file being scanned.
+     * @param int   $stackPtr  The position of the current token in the stack passed in $tokens.
+     * @param array $tokens    The stack of tokens that make up the file.
      *
      * @return void
      */
-    public function processSingleLineDeclaration(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $tokens)
+    public function processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
-        if (class_exists('Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff', true) === false) {
-            throw new PHP_CodeSniffer_Exception('Class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff not found');
-        }
-
-        $sniff = new Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff();
+        $sniff = new OpeningFunctionBraceBsdAllmanSniff();
 
         $sniff->process($phpcsFile, $stackPtr);
 

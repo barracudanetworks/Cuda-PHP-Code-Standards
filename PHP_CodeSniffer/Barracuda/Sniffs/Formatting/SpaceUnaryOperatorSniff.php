@@ -1,8 +1,27 @@
 <?php
-class Barracuda_Sniffs_Formatting_SpaceUnaryOperatorSniff implements PHP_CodeSniffer_Sniff
+/**
+ * Prevents spaces from appearing on either side of a unary operator.
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Andy Blyler <ablyler@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
+ */
+
+namespace Barracuda\Sniffs\Formatting;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+
+/**
+ * Prevents spaces from appearing on either side of a unary operator.
+ */
+class SpaceUnaryOperatorSniff implements Sniff
 {
-
-
 	/**
 	 * Returns an array of tokens this test wants to listen for.
 	 */
@@ -21,8 +40,12 @@ class Barracuda_Sniffs_Formatting_SpaceUnaryOperatorSniff implements PHP_CodeSni
 
 	/**
 	 * Processes this test, when one of its tokens is encountered.
+	 * @param File $phpcsFile The file being scanned.
+	 * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
+	 *
+	 * @return void
 	 */
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 

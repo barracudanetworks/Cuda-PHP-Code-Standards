@@ -1,36 +1,28 @@
 <?php
 /**
- * Parses and verifies the variable doc comment.
+ * Parses and verifies variable doc comments.
  *
  * PHP version 5
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @author    Ryan Matthews <rmatthews@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
  */
 
-if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === false) {
-    throw new PHP_CodeSniffer_Exception('Class PHP_CodeSniffer_Standards_AbstractVariableSniff not found');
-}
+namespace Barracuda\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Common;
 
 /**
- * Parses and verifies the variable doc comment.
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * Parses and verifies variable doc comments.
  */
-
-class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
+class VariableCommentSniff extends AbstractVariableSniff
 {
 	protected $allowedTypes = array(
 		'bool',
@@ -39,19 +31,18 @@ class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_S
 
 	public function __construct()
 	{
-		PHP_CodeSniffer::$allowedTypes = array_merge(PHP_CodeSniffer::$allowedTypes, $this->allowedTypes);
+		Common::$allowedTypes = array_merge(Common::$allowedTypes, $this->allowedTypes);
 	}
 
     /**
      * Called to process class member vars.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token in the stack passed in $tokens.
      *
      * @return void
      */
-    public function processMemberVar(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function processMemberVar(File $phpcsFile, $stackPtr)
     {
         $tokens       = $phpcsFile->getTokens();
         $commentToken = array(
@@ -127,7 +118,7 @@ class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_S
         }
 
         $varType       = $tokens[($foundVar + 2)]['content'];
-        $suggestedType = PHP_CodeSniffer::suggestType($varType);
+        $suggestedType = Common::suggestType($varType);
         if ($varType !== $suggestedType) {
             $error = 'Expected "%s" but found "%s" for @var tag in member variable comment';
             $data  = array(
@@ -145,13 +136,12 @@ class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_S
      *
      * Not required for this sniff.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this token was found.
-     * @param int                  $stackPtr  The position where the double quoted
-     *                                        string was found.
+     * @param File $phpcsFile The PHP_CodeSniffer file where this token was found.
+     * @param int  $stackPtr  The position where the double quoted string was found.
      *
      * @return void
      */
-    protected function processVariable(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    protected function processVariable(File $phpcsFile, $stackPtr)
     {
 
     }//end processVariable()
@@ -162,13 +152,12 @@ class Barracuda_Sniffs_Commenting_VariableCommentSniff extends PHP_CodeSniffer_S
      *
      * Not required for this sniff.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this token was found.
-     * @param int                  $stackPtr  The position where the double quoted
-     *                                        string was found.
+     * @param File $phpcsFile The PHP_CodeSniffer file where this token was found.
+     * @param int  $stackPtr  The position where the double quoted string was found.
      *
      * @return void
      */
-    protected function processVariableInString(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    protected function processVariableInString(File $phpcsFile, $stackPtr)
     {
 
     }//end processVariableInString()

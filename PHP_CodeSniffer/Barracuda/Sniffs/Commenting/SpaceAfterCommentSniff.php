@@ -1,5 +1,26 @@
 <?php
-class Barracuda_Sniffs_Commenting_SpaceAfterCommentSniff implements PHP_CodeSniffer_Sniff
+/**
+ * This sniff requires a space after the opening of a comment (e.g. "// Foo", "/* Foo")
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Andy Blyler <ablyler@barracuda.com>
+ * @license   BSD License 2.0, see LICENSE file.
+ * @version   2.0.00
+ * @link      https://github.com/BarracudaNetworks/Cuda-PHP-Code-Standards/
+ */
+
+namespace Barracuda\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Files\File;
+
+/**
+ * Requires a space after opening of comment.
+ */
+class SpaceAfterCommentSniff implements Sniff
 {
     /**
      * Returns the token types that this sniff is interested in.
@@ -16,13 +37,12 @@ class Barracuda_Sniffs_Commenting_SpaceAfterCommentSniff implements PHP_CodeSnif
     /**
      * Processes the tokens that this sniff is interested in.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int                  $stackPtr  The position in the stack where
-     *                                        the token was found.
+     * @param File $phpcsFile The file where the token was found.
+     * @param int  $stackPtr  The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -48,4 +68,3 @@ class Barracuda_Sniffs_Commenting_SpaceAfterCommentSniff implements PHP_CodeSnif
     }// end process()
 }
 // end class
-
